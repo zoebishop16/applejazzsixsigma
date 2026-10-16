@@ -1,6 +1,9 @@
 # Keep shell scripts, workflows and manifests LF on every OS, so a Windows clone can run
 # the deploy scripts and manifest checksums match on Connect.
 * text=auto
+*.csv text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
 *.sh text eol=lf
 *.yml text eol=lf
 *.yaml text eol=lf

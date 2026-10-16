@@ -1,151 +1,125 @@
-![](docs/images/banner_thin.png)
+﻿# BikeShare Operations
 
-# 🎯 Cornell Six Sigma Hackathon
+A Python website for a municipal bikeshare dispatcher deciding where to send redistribution and maintenance vans during empty/full-dock rush-hour disruptions. Built by **ApPLe JaZz**, Cornell Six Sigma Hackathon, 24-hour on-campus track.
 
-*Tackle real-world quality control problems drawn from industrial engineering,
-healthcare systems, and energy systems!*
+Seven pages connect availability, dock health, historical forecasts, dispatch tasks, maintenance tickets and tested quality-control analysis. Three reproducible **synthetic** scenarios run without an account, API key or downloaded dataset. This demonstration does not dispatch real crews.
 
----
+Repository: [zoebishop16/applejazzsixsigma](https://github.com/zoebishop16/applejazzsixsigma). **Public application URL: not deployed yet.** Course Posit Connect credentials and live verification remain outstanding.
 
-Your team picks a prompt, creates the data, and ships a working quality-control
-tool. **👉 [Register on Devpost](https://six-sigma-hackathon.devpost.com/)**
-(required, even if you don't have a team yet).
+## Run in VS Code
 
-### 📍 When & where
+Install Python **3.13** (tested: 3.13.1) and VS Code. Choose **File → Open Folder** and open this repository. Open **Terminal → New Terminal** at the repository root beside `SPEC.md`.
 
-| | 🏫 On-campus (24 hours) | 🌐 Virtual DL Challenge (7 days) |
-|---|---|---|
-| **Who** | on-campus students (required unless excused) | distance-learning students, and anyone who can't attend in person |
-| **Runs** | Fri Oct 16, 3 PM → Sat Oct 17, 3 PM ET | Fri Oct 16, 3 PM → Fri Oct 23, 3 PM ET |
-| **Where** | Upson Hall 116 | online |
-| **Submissions due** | Sat Oct 17, **1 PM ET** sharp | Fri Oct 23, **3 PM ET** |
-| **Showcase** | Sat Oct 17, 2-3 PM (must attend) | — |
+Windows:
 
-Submit on **[Devpost](https://six-sigma-hackathon.devpost.com/)**: your repo
-link plus a demo. Full run of show: [🗓️ Schedule](docs/schedule.md).
+```powershell
+py app/testme.py
+```
 
----
+macOS/Linux:
 
-### Quick Links
+```bash
+python3 app/testme.py
+```
 
-- [🗓️ Schedule of Events](docs/schedule.md)
-- [💬 Prompts](docs/prompts.md) — *revealed at the start of the event*
-- [🔢 Evaluation Criteria](docs/criteria.md)
-- [📚 Resources for Building Your Tool](docs/resources.md)
-- [🧰 Starter Templates](demos/README.md)
-- [🤖 Agent Start Tutorial](docs/start.md) — type `/superagent` and your agent reads it for you
-- [⁉️ FAQ](#️-frequently-asked-questions)
+The launcher creates `.venv` and installs pinned runtime packages if needed. First run needs internet and may take several minutes. Open **http://127.0.0.1:8000** after the terminal prints the address. Keep the terminal running; stop with **Ctrl+C**. No Node.js or Context7 is required.
 
----
+In VS Code choose **Ctrl+Shift+P → Python: Select Interpreter → .venv/Scripts/python.exe** (macOS/Linux: `.venv/bin/python`). Edit `app/dashboard.py` for behavior, `app/presentation.py` for appearance, and `app/qc.py` for analysis; restart the server after saving.
 
-> ### 📘🤖 New here? Read the [step-by-step start tutorial](docs/start.md) first
-> Ten minutes, for the whole team: set up your agent, **plan with `/superagent` on your
-> strongest model**, then **switch to a cheaper model** that builds and checks each task with
-> helper agents. **[→ docs/start.md](docs/start.md)**
+If `py` is missing, install Python or use your Python executable. If a Windows Store launcher reports “Access is denied,” use a regular Python installation or an existing environment: `.venv\Scripts\python.exe app/testme.py`.
 
+## Demonstrate the tool
 
-### 💡 The Challenge
+Start with **High failure**, default replay September 24, 2026, 08:15 UTC. Select a map marker for details. Shared filters select district, status, freshness, minimum open docks and problem stations; station scope selects one/all stations. Filters define a fixed station cohort at replay time.
 
-Your team tackles one real-world quality control and reliability problem.
+| Page | Decision support |
+|---|---|
+| Live Map | Synthetic station locations, rentable bikes, open docks, freshness |
+| Stockouts & Heatmap | Recurring empty/full periods and outage episodes |
+| Dock Health | Broken docks/bikes versus inventory imbalance |
+| Forecast & At-Risk | Historical 30/60-minute target-slot estimates and insufficient-history states |
+| Dispatch | Explained priorities, donor/recipient suggestions, session tasks and export |
+| Maintenance | Replay-visible tickets, response times and repeat problem stations |
+| Data Analysis | p, I-MR and hourly charts; empirical SLA/Ppu; reliability; Pareto/FMEA |
 
-- 🧩 Prompts are released **at kickoff** — each tied to a dataset you design and
-  build yourself
-- 📊 **The statistics are the graded core.** Statistical process control,
-  process capability, reliability modeling, failure analysis. The app is the
-  delivery vehicle for the analysis, not the point
-- 🧱 Ship a a dashboard / web app (React or Shiny), plus **one** of: an R package or Python library AND/OR a public REST API
-  (FastAPI or plumber).
-- 🚀 Deploy it live to the course **Posit Connect** server
-- 🔢 Every project is scored 0-100 by the event staff.
-  [Read the criteria](docs/criteria.md)
+Follow [the complete demo](demo/README.md) for exact scenario outputs and every page. Match full-window totals by replaying to **6047** with all stations and unrestricted filters. Select one station for hourly mean charts. Recovery target defaults to **15 minutes**, availability target **95%**; these are editable project settings, not city standards. FMEA scores and dispatch weights are editable judgments.
 
----
+Task/van assignments are session demonstration state and reset on refresh; export to retain them. No production authentication, real van tracking, traffic routing or telemetry integration is included.
 
-### 🤖 Build with AI — bring your own agent
+## Inputs and reproducible data
 
-AI-assisted development is **expected and encouraged**. Use whatever you already
-have. The skill being tested is steering a capable assistant toward
-statistically correct work — which is exactly the skill this course is about.
+Select a bundled scenario or upload `.csv`/`.csv.gz` snapshots, optionally work orders `.csv`. Uploads stay in the session and are not bundled for publishing. Required snapshot columns:
 
-- [🧠 AI coding agents](docs/agents.md) — the popular ones, and how to pick
-- [🎙️ Tools](docs/tools.md) — Wispr Flow (talk to your agent) and Open Design
-- [`CLAUDE.md`](CLAUDE.md) / [`AGENTS.md`](AGENTS.md) — what the event is, the
-  repo map, the deploy target, the four-script contract
-- [`.claude/skills/superagent/`](.claude/skills/superagent/SKILL.md) — the one
-  skill you need: type `/superagent` and it routes to every other skill and
-  template for you. They all live in [`.claude/skills/`](.claude/skills/) if you
-  want to read them
+```text
+timestamp,station_id,station_name,district,latitude,longitude,total_docks,
+broken_docks,bikes,broken_bikes,service_status,last_reported
+```
 
-Two rules: everything you ship is **public and reproducible**, and you must be
-able to **explain every number your tool prints**.
+Use UTC timestamps aligned to five-minute polls, nonnegative integer counts and consistent station metadata. `bikes` means **rentable** bikes; broken bikes occupy working docks. Derived open docks = total docks minus broken docks minus rentable/broken bikes. Validation rejects duplicate polls, missing fields, unsupported states and impossible capacity. Stale telemetry and missing polls remain unknown.
 
----
+The [codebook](data/README.md) documents every field, unit, file and real collection source. Three folders (`normal_week`, `high_failure_week`, `improvement_week`) each contain 20 stations, four districts, 10–20 docks and **21 days**, 120,960 five-minute rows plus work orders. Names, coordinates, faults and improvements are invented. Independent scenarios do not prove causal intervention effects.
 
-### ⁉️ Frequently Asked Questions
+Regenerate from the root: `py scripts/generate_data.py` (macOS/Linux: `python3 scripts/generate_data.py`). The generator uses only Python's standard library and prints deterministic fingerprints.
 
-- **Who can participate?** Cornell students who are (a) in the Systems
-  Engineering MEng/MS program, OR (b) enrolled in SYSEN 5300 / MAE 5390, OR
-  (c) enrolled in SYSEN 5900. Teams of **2 to 5**.
+## Test
 
-- **On-campus or virtual?** On-campus students do the 24-hour event in Upson
-  Hall 116 (required unless excused). Distance-learning students, and anyone
-  who can't attend in person, do the 7-day Virtual DL Challenge.
-  [Dates above](#-when--where).
+After first launch installs the environment, use a second terminal:
 
-- **What are the deadlines?** On-campus: submissions due Sat Oct 17, 1 PM ET
-  sharp; showcase Sat Oct 17, 2-3 PM (must attend). DL: submissions due
-  Fri Oct 23, 3 PM ET.
+```powershell
+.venv\Scripts\python.exe -m pip install -r tests/requirements.txt
+.venv\Scripts\python.exe -m pytest tests -q
+.venv\Scripts\python.exe demo/verify.py
+```
 
-- **What do we win?** On-campus winners: dinner for the team at the Statler
-  Dining Room. DL winners: bragging rights — infamy for all time.
+On macOS/Linux substitute `.venv/bin/python`. The core suite passed **14 tests** covering known answers, degenerate inputs, censoring, missingness, invalid data and future-data exclusion. The demo script reproduces all scenario results. See [review evidence](demo/statistics_review.md).
 
-- **Do I need Six Sigma experience?** No. Trainings are provided during the
-  event, and many of the analyses can be learned in a few minutes. The
-  [course textbook](https://timothyfraser.com/sigma/) is open to everyone.
+For browser checks with the server running and Microsoft Edge installed:
 
-- **Do I have to be a coding wizard?** No. Some prior experience in R or Python
-  is enough, and AI assistants close a lot of the gap. A winning project is a
-  smart, correct solution to a quality-control problem — not fancy code.
+```powershell
+.venv\Scripts\python.exe app/browser_check.py --channel msedge
+```
 
-- **What if I can't find team members?** Register on
-  [Devpost](https://six-sigma-hackathon.devpost.com/) anyway; we will match
-  you with a team.
+Otherwise install Playwright Chromium (`.venv/bin/python -m playwright install chromium`) and omit `--channel msedge`. Browser checks exercised seven pages, three chart types, filters, queue edits, exports, scenarios, mobile layout, invalid upload and a known-answer upload showing 50.0% availability. A teammate fresh-clone walkthrough and logged-out deployed verification remain pending.
 
-- **Do I have to be there the whole 24 hours?** A successful team works most of
-  it. Step out, sleep, stagger breaks — just keep someone on the team present.
+## Publish to course Posit Connect
 
-- **Can a teammate join the on-campus event remotely?** No. Anyone who can't
-  attend in person does the Virtual DL Challenge instead.
+The app uses explicit entrypoint **dashboard:app**, with a locally generated committed manifest. Use the course **Posit Connect server**, with a compatible Python interpreter. Never put keys or server addresses in source files, commits, screenshots or chat.
 
-- **What do we submit?** On Devpost: a link to your public GitHub repository
-  and a demo of a working prototype, deployed live to Posit Connect. At least
-  one team member needs a working (non-Cornell) GitHub account.
+1. Install publishing tools and regenerate the manifest after any bundled app/data/dependency change:
 
-- **What software do I need?** Install R or Python and at least one coding
-  interface (RStudio, VSCode, Cursor, Positron, ...) **before** the event
-  starts. If you plan to use an AI assistant, set it up beforehand too.
+   ```powershell
+   .venv\Scripts\python.exe -m pip install -r app/requirements-deploy.txt
+   .venv\Scripts\python.exe app/manifestme.py
+   ```
 
-- **What language should I use?** R, Python, or both. Code must be fully
-  reproducible and public.
+   This copies only public synthetic fixtures to `app/data`, normalizes LF text and fingerprints the app. Do not generate the manifest in CI. `.gitattributes` preserves file hashes across platforms.
 
-- **How are products evaluated?** Scored 0-100 by event staff on
-  [the criteria](docs/criteria.md): tool implementation (50), tool design
-  (25), documentation (25).
+2. In your GitHub repo choose **Settings → Secrets and variables → Actions**. Add `CONNECT_SERVER` and `CONNECT_API_KEY` using course-provided values. The prepared `.github/workflows/deploy-shiny-py.yml` uses `APP_DIR: app`.
+3. Review changes together, then stage explicit paths, commit and push:
 
----
+   ```powershell
+   git add README.md SPEC.md CONTRACT.yaml .gitattributes .gitignore app/ data/ tests/ demo/ scripts/generate_data.py docs/plan.md .github/workflows/deploy-shiny-py.yml .github/scripts/connect-publish-async.sh
+   git commit -m "Build BikeShare Operations dashboard"
+   git push origin main
+   ```
 
-### 👥 How to Join
+   These are publication instructions; no commit or push was performed automatically. Applicable pushes to main trigger deployment, or choose **Actions → Deploy Shiny (Python) app to Posit Connect → Run workflow**.
+4. Wait for green Actions, then configure content public access in Connect (“Anyone” where permitted). Open its URL logged out; verify HTTP 200, every page and a known test dataset. Add the verified URL here and submit it with the repository link on Devpost.
 
-[Register on Devpost](https://six-sigma-hackathon.devpost.com/) — registration
-is required. Form a team of 2 to 5, or register solo and we'll match you.
+For a local first deployment, register a named server `course` using the `rsconnect` CLI in your private terminal (`rsconnect add --help` describes server/key options). Keep credentials local and out of tracked files. Then run:
 
----
+```powershell
+.venv\Scripts\python.exe app/deployme.py --server-name course
+```
 
-### 📚 Sign Up to Mentor
+If the server lacks Python3.13, create an environment using a supported version, check package compatibility, retest, update `app/.python-version` and regenerate the manifest from that environment. Editing its fingerprint alone does not change the interpreter. Diagnose deployment failures from the first failing Connect task-log message.
 
-Faculty, postdocs, PhD students, and developers are welcome as mentors.
-[Details here](docs/mentors.md).
+## Methods, assumptions and sources
 
----
+Every numerical analysis lives in [app/qc.py](app/qc.py); [the API reference](app/README.md) documents functions and units. Availability excludes unknown telemetry and reports coverage separately. Poll durations have five-minute resolution. Incomplete/censored episodes are excluded from completed recovery means; observed downtime remains exposure. Technical tickets can overlap inventory outages.
 
-![](docs/images/banner_icons.png)
+Charts freeze baseline limits and use only the three-sigma point rule. Repeated stations and daily cycles violate independence, making p/hourly charts exploratory. Ppu uses overall sample SD with stability/normality caveats and is **not Cpk**. Exponential reliability assumes constant hazard; series/parallel illustrations assume independence. No observed failures does not establish finite MTBF. Forecasts use only earlier available history and report insufficient samples.
+
+Adapted from [timothyfraser/sixsigmahackathon](https://github.com/timothyfraser/sixsigmahackathon); the Python package starter and MIT license are retained in `app/starter_reference`. Publishing templates credit [fastapi-connect-demo](https://github.com/timothyfraser/fastapi-connect-demo). References: [Shiny for Python](https://shiny.posit.co/py/), NIST [p charts](https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc332.htm), [individuals charts](https://www.itl.nist.gov/div898/handbook/pmc/section3/pmc322.htm), [capability](https://www.itl.nist.gov/div898/handbook/pmc/section1/pmc16.htm).
+
+Project files: `app/` implementation and launch/publish scripts; `tests/` active checks; `data/` fixtures/codebook; `demo/` exact walkthrough; `scripts/generate_data.py` generator; `SPEC.md`, `CONTRACT.yaml`, `docs/plan.md` scope and task evidence.

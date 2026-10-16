@@ -1,5 +1,6 @@
 # CONTRACT.yaml - the task ledger for your hackathon project.
 # SPEC.md says what the tool IS. This file says what is being DONE.
+# Verified work remains todo pending teammate review and an approved commit; see result fields.
 # It is pre-filled: these eight tasks are the whole rubric (docs/criteria.md),
 # in the order you should build them. Each names the points it earns.
 #
@@ -22,15 +23,15 @@
 # Delete the paths you do not use.
 
 spec: SPEC.md
-updated: ""
+updated: "2026-10-16 18:51"
 
 tasks:
   - id: H-01
     title: Fill in every FILL IN line in SPEC.md
     points: "15 - Tool Design: scope matches a prompt (5), clear user and use case (5), minimal inputs (5)"
     status: todo
-    owner: ""
-    started_at: ""
+    owner: "Codex + ApPLe JaZz"
+    started_at: "2026-10-16"
     owns: ["SPEC.md"]
     notes: >
       Do this together, out loud, right after kickoff. The prompts are in
@@ -40,27 +41,27 @@ tasks:
       grep -c "FILL IN[.,]" SPEC.md prints 0 (it counts only the blanks,
       not the instructions at the top), and every teammate can say the
       method sentence in SPEC section 4 without reading it.
-    result: ""
+    result: "SPEC approved; placeholder check printed 0; awaiting reviewed commit."
 
   - id: H-02
     title: Two or three test datasets plus a codebook
     points: "10 - Tool Documentation: 2-3 working test datasets (5), codebook and README for the data (5)"
     status: todo
-    owner: ""
-    started_at: ""
-    owns: ["data/"]
+    owner: "Codex implementer + ApPLe JaZz"
+    started_at: "2026-10-16 18:27"
+    owns: ["data/", "scripts/generate_data.py"]
     definition_of_done: >
-      ls data/*.csv lists 2 or 3 files (e.g. in control, planted shift, edge
+      Get-ChildItem data/*/snapshots.csv.gz lists 3 scenario files (normal, high failure, improvement
       case), and data/README.md names every one of them and describes every
       column with units and how the data would be collected for real.
-    result: ""
+    result: "READY FOR REVIEW; 3 scenarios each 120960 rows, bounds/cadence/rush checks pass; rerun SHA256 identical; pending approved commit."
 
   - id: H-03
     title: Core QC statistic as one plain, tested function
     points: "25 - Tool Implementation: valid analyses relevant to quality control in R or Python"
     status: todo
-    owner: ""
-    started_at: ""
+    owner: "Codex implementer + ApPLe JaZz"
+    started_at: "2026-10-16 18:31"
     owns: ["app/qc.py", "app/qc.R", "app/requirements.txt", "tests/"]
     notes: >
       Load the stats-first-steering skill before writing any statistics. Plain
@@ -69,14 +70,14 @@ tasks:
       pytest tests (Python) or Rscript -e "testthat::test_dir('tests')" (R)
       passes, including one test that reproduces the SPEC section 4
       known-answer check and one degenerate case (constant data or n = 1).
-    result: ""
+    result: "READY FOR REVIEW; .venv/Scripts/python.exe -m pytest tests -q printed 14 passed in 2.34s; known answers and zero-variation chart rejection pass; pending approved commit."
 
   - id: H-04
     title: Working tool - one demo copied to app/ and wired to the H-03 function
     points: "25 - Tool Implementation: an effective, working tool (does it run?)"
     status: todo
-    owner: ""
-    started_at: ""
+    owner: "Codex + implementer + ApPLe JaZz"
+    started_at: "2026-10-16 18:35"
     owns: ["app/"]
     notes: >
       Copy ONE folder from demos/ (the one named in SPEC section 5) to app/.
@@ -86,29 +87,29 @@ tasks:
       The testme script in app/ starts the tool with one command, and a call
       on one data/ file (endpoint, function call or app upload) returns the
       same numbers as the H-03 known-answer test.
-    result: ""
+    result: "READY FOR REVIEW; HTTP 200 and browser checks passed seven pages, charts, filters, queue, export, upload and known 50.0 percent availability; awaiting approved commit."
 
   - id: H-05
     title: Demonstration of the tool on every test dataset
     points: "10 - Tool Design: a clear demonstration of the tool, using test datasets"
     status: todo
-    owner: ""
-    started_at: ""
+    owner: "Codex implementer + ApPLe JaZz"
+    started_at: "2026-10-16 18:43"
     owns: ["demo/", "app/frontend/"]
     definition_of_done: >
       demo/README.md walks through each data/ CSV with the exact command or
       URL to run, the numbers or chart the tool shows, and a one-line "how to
       read this"; a teammate who did not write it follows it and gets the same
       numbers.
-    result: ""
+    result: "READY FOR REVIEW; demo/verify.py reproduced all 3 scenario results and ordering PASS; walkthrough and stats review evidence written; human teammate walkthrough pending."
 
   - id: H-06
     title: Deploy to the course Posit Connect server
     points: "protects the 25 working-tool points - judges must be able to open it"
     status: todo
-    owner: ""
-    started_at: ""
-    owns: [".github/workflows/", ".github/scripts/", "app/manifest.json", "app/.python-version"]
+    owner: "Codex + implementer + ApPLe JaZz"
+    started_at: "2026-10-16 18:45"
+    owns: [".github/workflows/", ".github/scripts/", "app/manifest.json", "app/.python-version", "app/manifestme.py", "app/requirements.txt", "app/requirements-deploy.txt", ".gitattributes"]
     notes: >
       Load the connect-publish skill. Copy ONE workflow for your stack from
       .claude/skills/connect-publish/workflows/ to .github/workflows/ and the
@@ -120,14 +121,14 @@ tasks:
     definition_of_done: >
       The workflow run is green, and the public URL answers HTTP 200 from a
       logged-out browser and returns the H-03 numbers for one test dataset.
-    result: ""
+    result: "Prepared course workflow, LF bundle and verified manifest; no public deployment, course credentials and human publication review still required; final 17-file bundle hashes and isolated import verified."
 
   - id: H-07
     title: README and function documentation
     points: "10 - Tool Documentation: excellent, easy-to-follow documentation"
     status: todo
-    owner: ""
-    started_at: ""
+    owner: "Codex implementer + ApPLe JaZz"
+    started_at: "2026-10-16 18:47"
     owns: ["README.md", "app/README.md"]
     notes: >
       Replace the hackathon README.md with your tool's README; the event
@@ -137,15 +138,15 @@ tasks:
       how each function or endpoint works, how to run it in one command, the
       live URL, and links demo/README.md. A teammate who did not write the
       code follows it from a fresh clone and it works.
-    result: ""
+    result: "READY FOR REVIEW; root and app README document VS Code launch, tests, publish and all 19 public QC functions; automated docs checks pass; teammate fresh-clone walkthrough pending."
 
   - id: H-08
     title: Reproducible public repo, submitted on Devpost
     points: "5 - Tool Documentation: fully reproducible code, posted publicly to GitHub"
     status: todo
-    owner: ""
-    started_at: ""
-    owns: [".gitignore"]
+    owner: "Codex implementer + ApPLe JaZz"
+    started_at: "2026-10-16 18:50"
+    owns: [".gitignore", "pytest.ini"]
     notes: >
       Make this clone your own public repo early (a new GitHub repo, then
       git remote set-url origin to it) - H-06 needs it. Submit on Devpost
@@ -154,4 +155,4 @@ tasks:
       git clone of the public repo into an empty folder, then the app/
       testme script and the H-03 tests both pass with no extra steps; git
       grep -i "api_key" finds no real key; the Devpost entry links the repo.
-    result: ""
+    result: "READY FOR REVIEW; default pytest printed 14 passed in 3.07s and venv/cache/env ignored; public push, fresh-clone validation and Devpost submission pending."
